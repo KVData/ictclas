@@ -1,4 +1,4 @@
-package cn.edu.nju.software;
+package cn.edu.nju.software.nlpir;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -6,51 +6,49 @@ import com.sun.jna.Native;
 /**
  * 分词组件的Java接口，采用JNA技术来实现
  * 
- * @author dalec
+ * @author move
  * 
  */
 public interface NlpirLib extends Library {
-	/**
-	 * 定义并初始化接口的静态变量，通过JNA调用NLPIR.dll
- 	 */
-	NlpirLib INSTANCE = (NlpirLib) Native.loadLibrary("NLPIR", NlpirLib.class);
+	// 定义并初始化接口的静态变量，通过JNA调用NLPIR.dll;
+	NlpirLib Instance = (NlpirLib) Native.loadLibrary("NLPIR", NlpirLib.class);
 
 	/**
 	 * 组件初始化
 	 * 
-	 * @param dataPath
+	 * @param sDataPath
 	 *            Data文件夹的父目录，如果为空字符串（即：""），那么，程序自动从项目的根目录中寻找
 	 * @param encoding
 	 *            编码格式，具体的编码对照如下： 0：GBK；1：UTF8；2：BIG5；3：GBK，里面包含繁体字
-	 * @param licenceCode
+	 * @param sLicenceCode
 	 *            授权码，为空字符串（即：""）就可以了
 	 * @return true：初始化成功；false：初始化失败
 	 */
-	boolean NLPIR_Init(String dataPath, int encoding, String licenceCode);
+	public boolean NLPIR_Init(String sDataPath, int encoding, String sLicenceCode);
 
 	/**
 	 * 分词
 	 * 
-	 * @param paragraph
+	 * @param sParagraph
 	 *            文本内容
-	 * @param posTagged
+	 * @param bPOSTagged
 	 *            1：显示词性；0：不显示词性
 	 * @return 分词结果
 	 */
-	String NLPIR_ParagraphProcess(String paragraph, int posTagged);
+	public String NLPIR_ParagraphProcess(String sParagraph, int bPOSTagged);
 
 	/**
 	 * 分词
 	 * 
-	 * @param sourceFilename
+	 * @param sSourceFilename
 	 *            文本文件的路径
-	 * @param resultFilename
+	 * @param sResultFilename
 	 *            结果文件的路径
-	 * @param posTagged
+	 * @param bPOStagged
 	 *            1：显示词性；0：不显示词性
-	 * @return 分词结果
+	 * @return
 	 */
-	double NLPIR_FileProcess(String sourceFilename, String resultFilename, int posTagged);
+	public double NLPIR_FileProcess(String sSourceFilename, String sResultFilename, int bPOStagged);
 
 	/**
 	 * 细粒度分词
@@ -59,7 +57,7 @@ public interface NlpirLib extends Library {
 	 *            文本内容
 	 * @return 分词结果
 	 */
-	String NLPIR_FinerSegment(String lenWords);
+	public String NLPIR_FinerSegment(String lenWords);
 
 	/**
 	 * 关键词
@@ -72,7 +70,7 @@ public interface NlpirLib extends Library {
 	 *            true：显示词性；false：不显示词性
 	 * @return 关键词组成的字符串 备注：黑名单中出现的词，不会作为关键词出现
 	 */
-	String NLPIR_GetKeyWords(String sLine, int nMaxKeyLimit, boolean bWeightOut);
+	public String NLPIR_GetKeyWords(String sLine, int nMaxKeyLimit, boolean bWeightOut);
 
 	/**
 	 * 关键词
@@ -85,7 +83,7 @@ public interface NlpirLib extends Library {
 	 *            true：显示词性；false：不显示词性
 	 * @return 关键词组成的字符串 备注：黑名单中出现的词，不会作为关键词出现
 	 */
-	String NLPIR_GetFileKeyWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut);
+	public String NLPIR_GetFileKeyWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut);
 
 	/**
 	 * 新词
@@ -98,7 +96,7 @@ public interface NlpirLib extends Library {
 	 *            true：显示词性；false：不显示词性
 	 * @return 新词组成的字符串
 	 */
-	String NLPIR_GetNewWords(String sLine, int nMaxKeyLimit, boolean bWeightOut);
+	public String NLPIR_GetNewWords(String sLine, int nMaxKeyLimit, boolean bWeightOut);
 
 	/**
 	 * 新词
@@ -111,7 +109,7 @@ public interface NlpirLib extends Library {
 	 *            true:显示词性信息；false:不显示词性信息
 	 * @return 新词组成的字符串
 	 */
-	String NLPIR_GetFileNewWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut);
+	public String NLPIR_GetFileNewWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut);
 
 	/**
 	 * 添加用户自定义词
@@ -120,14 +118,14 @@ public interface NlpirLib extends Library {
 	 *            用户词 格式：单词+空格+词性，例如：你好 v
 	 * @return 1：内存中不存在；2：内存中已存在 备注：保存到内存中，下次初始化后失效，需要用save保存到文件中
 	 */
-	int NLPIR_AddUserWord(String userWord);
+	public int NLPIR_AddUserWord(String userWord);
 
 	/**
 	 * 保存用户自定义词(保存到文件中)
 	 * 
 	 * @return 1：成功；0：失败
 	 */
-	int NLPIR_SaveTheUsrDic();
+	public int NLPIR_SaveTheUsrDic();
 
 	/**
 	 * 删除用户自定义词
@@ -136,7 +134,7 @@ public interface NlpirLib extends Library {
 	 *            需要删除的单词
 	 * @return 被删除单词在内存中的位置，-1表示不存在 备注：删除内存中的自定义词，下次初始化后失效，需要用save保存到文件中
 	 */
-	int NLPIR_DelUsrWord(String sWord);
+	public int NLPIR_DelUsrWord(String sWord);
 
 	/**
 	 * 导入用户自定义词典
@@ -147,7 +145,7 @@ public interface NlpirLib extends Library {
 	 *            是否删除原有的自定义用户词典，true：删除；false：不删除
 	 * @return 导入用户单词个数 备注：系统会自动处理重复词的问题
 	 */
-	int NLPIR_ImportUserDict(String dictFileName, boolean bOverwrite);
+	public int NLPIR_ImportUserDict(String dictFileName, boolean bOverwrite);
 
 	/**
 	 * 导入关键词黑名单
@@ -156,7 +154,7 @@ public interface NlpirLib extends Library {
 	 *            文件的路径
 	 * @return 备注：成功导入后，黑名单中出现的词，不会作为关键词出现
 	 */
-	int NLPIR_ImportKeyBlackList(String sFilename);
+	public int NLPIR_ImportKeyBlackList(String sFilename);
 
 	/**
 	 * 文章指纹码
@@ -165,7 +163,7 @@ public interface NlpirLib extends Library {
 	 *            文本内容
 	 * @return 指纹码
 	 */
-	long NLPIR_FingerPrint(String sLine);
+	public long NLPIR_FingerPrint(String sLine);
 
 	/**
 	 * 单词的词性
@@ -174,7 +172,7 @@ public interface NlpirLib extends Library {
 	 *            单词，例如：中华人民共和国
 	 * @return 单词的词性，例如：中华人民共和国/ns/607#
 	 */
-	String NLPIR_GetWordPOS(String sWords);
+	public String NLPIR_GetWordPOS(String sWords);
 
 	/**
 	 * 判断单词是否在核心词库中
@@ -183,7 +181,7 @@ public interface NlpirLib extends Library {
 	 *            输入的单词
 	 * @return 如果单词不存在就返回-1，否则返回单词在词典中的句柄
 	 */
-	int NLPIR_IsWord(String word);
+	public int NLPIR_IsWord(String word);
 
 	/**
 	 * 获取输入文本的词，词性，频统计结果，按照词频大小排序
@@ -192,7 +190,7 @@ public interface NlpirLib extends Library {
 	 *            文本内容
 	 * @return 词频统计结果形式如下：张华平/nr/10#博士/n/9#分词/n/8
 	 */
-	String NLPIR_WordFreqStat(String sText);
+	public String NLPIR_WordFreqStat(String sText);
 
 	/**
 	 * 获取输入文本文件的词，词性，频统计结果，按照词频大小排序
@@ -201,7 +199,7 @@ public interface NlpirLib extends Library {
 	 *            文本文件的全路径
 	 * @return 词频统计结果形式如下：张华平/nr/10#博士/n/9#分词/n/8
 	 */
-	String NLPIR_FileWordFreqStat(String sFilename);
+	public String NLPIR_FileWordFreqStat(String sFilename);
 
 	/**
 	 * 获取各类英文单词的原型，考虑了过去分词、单复数等情况
@@ -210,19 +208,19 @@ public interface NlpirLib extends Library {
 	 *            输入的单词
 	 * @return 词原型形式，例如：driven->drive drives->drive drove-->drive
 	 */
-	String NLPIR_GetEngWordOrign(String sWord);
+	public String NLPIR_GetEngWordOrign(String sWord);
 
 	/**
 	 * 返回最后一次的出错信息
 	 * 
 	 * @return 最后一次的出错信息
 	 */
-	String NLPIR_GetLastErrorMsg();
+	public String NLPIR_GetLastErrorMsg();
 
 	/**
 	 * 退出，释放资源
 	 * 
 	 * @return
 	 */
-	boolean NLPIR_Exit();
+	public boolean NLPIR_Exit();
 }

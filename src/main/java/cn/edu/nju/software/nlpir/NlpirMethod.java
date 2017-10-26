@@ -1,4 +1,4 @@
-package cn.edu.nju.software;
+package cn.edu.nju.software.nlpir;
 
 /**
  * 分词组件方法类
@@ -9,12 +9,12 @@ package cn.edu.nju.software;
 public class NlpirMethod {
 	// 初始化
 	static {
-		boolean flag = NlpirLib.INSTANCE.NLPIR_Init("", 1, "");
+		boolean flag = NlpirLib.Instance.NLPIR_Init("", 1, "");
 
 		if (flag) {
 			System.out.println("nlpir初始化成功");
 		} else {
-			System.out.println("nlpir初始化失败：" + NlpirLib.INSTANCE.NLPIR_GetLastErrorMsg());
+			System.out.println("nlpir初始化失败：" + NlpirLib.Instance.NLPIR_GetLastErrorMsg());
 			System.exit(1);
 		}
 	}
@@ -31,7 +31,7 @@ public class NlpirMethod {
 	 * @return true：初始化成功；false：初始化失败
 	 */
 	public static boolean NLPIR_Init(String sDataPath, int encoding, String sLicenceCode) {
-		return NlpirLib.INSTANCE.NLPIR_Init(sDataPath, encoding, sLicenceCode);
+		return NlpirLib.Instance.NLPIR_Init(sDataPath, encoding, sLicenceCode);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class NlpirMethod {
 	 * @return 分词结果
 	 */
 	public static String NLPIR_ParagraphProcess(String sParagraph, int bPOSTagged) {
-		return NlpirLib.INSTANCE.NLPIR_ParagraphProcess(sParagraph, bPOSTagged);
+		return NlpirLib.Instance.NLPIR_ParagraphProcess(sParagraph, bPOSTagged);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class NlpirMethod {
 	 * @return
 	 */
 	public static double NLPIR_FileProcess(String sSourceFilename, String sResultFilename, int bPOStagged) {
-		return NlpirLib.INSTANCE.NLPIR_FileProcess(sSourceFilename, sResultFilename, bPOStagged);
+		return NlpirLib.Instance.NLPIR_FileProcess(sSourceFilename, sResultFilename, bPOStagged);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class NlpirMethod {
 	 * @return 分词结果
 	 */
 	public static String NLPIR_FinerSegment(String lenWords) {
-		return NlpirLib.INSTANCE.NLPIR_FinerSegment(lenWords);
+		return NlpirLib.Instance.NLPIR_FinerSegment(lenWords);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class NlpirMethod {
 	 * @return 关键词组成的字符串 备注：黑名单中出现的词，不会作为关键词出现
 	 */
 	public static String NLPIR_GetKeyWords(String sLine, int nMaxKeyLimit, boolean bWeightOut) {
-		return NlpirLib.INSTANCE.NLPIR_GetKeyWords(sLine, nMaxKeyLimit, bWeightOut);
+		return NlpirLib.Instance.NLPIR_GetKeyWords(sLine, nMaxKeyLimit, bWeightOut);
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class NlpirMethod {
 	 * @return 关键词组成的字符串 备注：黑名单中出现的词，不会作为关键词出现
 	 */
 	public static String NLPIR_GetFileKeyWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut) {
-		return NlpirLib.INSTANCE.NLPIR_GetFileKeyWords(sFilename, nMaxKeyLimit, bWeightOut);
+		return NlpirLib.Instance.NLPIR_GetFileKeyWords(sFilename, nMaxKeyLimit, bWeightOut);
 	}
 
 	/**
@@ -115,13 +115,13 @@ public class NlpirMethod {
 	 * @return 新词组成的字符串
 	 */
 	public static String NLPIR_GetNewWords(String sLine, int nMaxKeyLimit, boolean bWeightOut) {
-		return NlpirLib.INSTANCE.NLPIR_GetNewWords(sLine, nMaxKeyLimit, bWeightOut);
+		return NlpirLib.Instance.NLPIR_GetNewWords(sLine, nMaxKeyLimit, bWeightOut);
 	}
 
 	/**
 	 * 新词
 	 * 
-	 * @param sFilename
+	 * @param string
 	 *            文本文件的路径
 	 * @param nMaxKeyLimit
 	 *            生成的新词的个数上限
@@ -130,7 +130,7 @@ public class NlpirMethod {
 	 * @return 新词组成的字符串
 	 */
 	public static String NLPIR_GetFileNewWords(String sFilename, int nMaxKeyLimit, boolean bWeightOut) {
-		return NlpirLib.INSTANCE.NLPIR_GetFileNewWords(sFilename, nMaxKeyLimit, bWeightOut);
+		return NlpirLib.Instance.NLPIR_GetFileNewWords(sFilename, nMaxKeyLimit, bWeightOut);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class NlpirMethod {
 	 * @return 1：内存中不存在；2：内存中已存在 备注：保存到内存中，下次初始化后失效，需要用save保存到文件中
 	 */
 	public static int NLPIR_AddUserWord(String userWord) {
-		return NlpirLib.INSTANCE.NLPIR_AddUserWord(userWord);
+		return NlpirLib.Instance.NLPIR_AddUserWord(userWord);
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class NlpirMethod {
 	 * @return 1：成功；0：失败
 	 */
 	public static int NLPIR_SaveTheUsrDic() {
-		return NlpirLib.INSTANCE.NLPIR_SaveTheUsrDic();
+		return NlpirLib.Instance.NLPIR_SaveTheUsrDic();
 	}
 
 	/**
@@ -161,7 +161,7 @@ public class NlpirMethod {
 	 * @return 被删除单词在内存中的位置，-1表示不存在 备注：删除内存中的自定义词，下次初始化后失效，需要用save保存到文件中
 	 */
 	public static int NLPIR_DelUsrWord(String sWord) {
-		return NlpirLib.INSTANCE.NLPIR_DelUsrWord(sWord);
+		return NlpirLib.Instance.NLPIR_DelUsrWord(sWord);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class NlpirMethod {
 	 * @return 导入用户单词个数 备注：系统会自动处理重复词的问题
 	 */
 	public static int NLPIR_ImportUserDict(String dictFileName, boolean bOverwrite) {
-		return NlpirLib.INSTANCE.NLPIR_ImportUserDict(dictFileName, bOverwrite);
+		return NlpirLib.Instance.NLPIR_ImportUserDict(dictFileName, bOverwrite);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class NlpirMethod {
 	 * @return 备注：成功导入后，黑名单中出现的词，不会作为关键词出现
 	 */
 	public static int NLPIR_ImportKeyBlackList(String sFilename) {
-		return NlpirLib.INSTANCE.NLPIR_ImportKeyBlackList(sFilename);
+		return NlpirLib.Instance.NLPIR_ImportKeyBlackList(sFilename);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class NlpirMethod {
 	 * @return 指纹码
 	 */
 	public static long NLPIR_FingerPrint(String sLine) {
-		return NlpirLib.INSTANCE.NLPIR_FingerPrint(sLine);
+		return NlpirLib.Instance.NLPIR_FingerPrint(sLine);
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class NlpirMethod {
 	 * @return 单词的词性，例如：中华人民共和国/ns/607#
 	 */
 	public static String NLPIR_GetWordPOS(String sWords) {
-		return NlpirLib.INSTANCE.NLPIR_GetWordPOS(sWords);
+		return NlpirLib.Instance.NLPIR_GetWordPOS(sWords);
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class NlpirMethod {
 	 * @return 如果单词不存在就返回-1，否则返回单词在词典中的句柄
 	 */
 	public static int NLPIR_IsWord(String word) {
-		return NlpirLib.INSTANCE.NLPIR_IsWord(word);
+		return NlpirLib.Instance.NLPIR_IsWord(word);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class NlpirMethod {
 	 * @return 词频统计结果形式如下：张华平/nr/10#博士/n/9#分词/n/8
 	 */
 	public static String NLPIR_WordFreqStat(String sText) {
-		return NlpirLib.INSTANCE.NLPIR_WordFreqStat(sText);
+		return NlpirLib.Instance.NLPIR_WordFreqStat(sText);
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class NlpirMethod {
 	 * @return 词频统计结果形式如下：张华平/nr/10#博士/n/9#分词/n/8
 	 */
 	public static String NLPIR_FileWordFreqStat(String sFilename) {
-		return NlpirLib.INSTANCE.NLPIR_FileWordFreqStat(sFilename);
+		return NlpirLib.Instance.NLPIR_FileWordFreqStat(sFilename);
 	}
 
 	/**
@@ -251,7 +251,7 @@ public class NlpirMethod {
 	 * @return 词原型形式，例如：driven->drive drives->drive drove-->drive
 	 */
 	public static String NLPIR_GetEngWordOrign(String sWord) {
-		return NlpirLib.INSTANCE.NLPIR_GetEngWordOrign(sWord);
+		return NlpirLib.Instance.NLPIR_GetEngWordOrign(sWord);
 	}
 
 	/**
@@ -260,7 +260,7 @@ public class NlpirMethod {
 	 * @return 最后一次的出错信息
 	 */
 	public static String NLPIR_GetLastErrorMsg() {
-		return NlpirLib.INSTANCE.NLPIR_GetLastErrorMsg();
+		return NlpirLib.Instance.NLPIR_GetLastErrorMsg();
 	}
 
 	/**
@@ -269,6 +269,6 @@ public class NlpirMethod {
 	 * @return
 	 */
 	public static boolean NLPIR_Exit() {
-		return NlpirLib.INSTANCE.NLPIR_Exit();
+		return NlpirLib.Instance.NLPIR_Exit();
 	}
 }
