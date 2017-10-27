@@ -2,6 +2,7 @@ package cn.edu.nju.software;
 
 import cn.edu.nju.software.entity.Comment;
 import cn.edu.nju.software.entity.Word;
+import cn.edu.nju.software.entity.WordFrequencyResult;
 import cn.edu.nju.software.service.NlpService;
 import cn.edu.nju.software.service.NlpServiceImpl;
 import com.alibaba.fastjson.JSON;
@@ -10,8 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author dalec
@@ -29,20 +30,24 @@ public class Main {
                 Comment comment = JSON.parseObject(line, Comment.class);
                 content = content.concat(comment.getContent());
                 i++;
-                if (i == 100) {
+                if (i == 1000) {
 
                     long now = System.currentTimeMillis();
 
-                    List<List<Word>> list = service.phrasePatternMatch(content, "n,a");
+                    // 根据模式找到短语
+                    List<List<Word>> phraseList = service.phrasePatternMatch(content, "n,a");
+                    phraseList.addAll(service.phrasePatternMatch(content, "n,d,a"));
+                    // 过滤出名词并统计词频
+                    List<WordFrequencyResult> nounList = service.getWordFrequency(phraseList.stream()
+                            .flatMap(Collection::stream)
+                            .filter(item -> item.getPartOfSpeech().startsWith("n"))
+                            .map(Word::getContent)
+                            .reduce("", String::concat));
+                    logger.info(nounList);
                     logger.debug(System.currentTimeMillis() - now);
 
-                    logger.info(list.stream()
-                            .map(phrase -> String.join("",
-                                    phrase.stream()
-                                            .map(Word::getContent)
-                                            .collect(Collectors.toList())))
-                            .collect(Collectors.toList()));
-                    break;
+                    i = 0;
+                    content = "";
                 }
             }
         } catch (Exception e) {
