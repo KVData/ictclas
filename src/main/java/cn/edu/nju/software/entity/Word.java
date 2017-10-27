@@ -27,4 +27,8 @@ public class Word {
                 ", partOfSpeech='" + partOfSpeech + '\'' +
                 '}';
     }
+
+    public boolean isNoun() {
+        return getPartOfSpeech().startsWith("n");
+    }
 }

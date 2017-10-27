@@ -40,12 +40,13 @@ public class Main {
                     // 过滤出名词并统计词频
                     List<WordFrequencyResult> nounList = service.getWordFrequency(phraseList.stream()
                             .flatMap(Collection::stream)
-                            .filter(item -> item.getPartOfSpeech().startsWith("n"))
+                            .filter(Word::isNoun)
                             .map(Word::getContent)
                             .reduce("", String::concat));
                     logger.info(nounList);
                     logger.debug(System.currentTimeMillis() - now);
 
+                    // 恢复现场
                     i = 0;
                     content = "";
                 }
