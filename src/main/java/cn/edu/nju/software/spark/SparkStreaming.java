@@ -35,7 +35,7 @@ public class SparkStreaming {
         WriteConfig writeConfig = WriteConfig.create(conf);
 
         try (NlpService service = new NlpServiceImpl()) {
-            JavaDStream<String> lines = jssc.textFileStream("hdfs://192.168.59.10:9000/mytest/");
+            JavaDStream<String> lines = jssc.textFileStream("hdfs://192.168.59.10:9000/test/");
             JavaDStream<StreamingResult> words = lines.flatMap(line -> {
                 Comment comment = JSON.parseObject(line, Comment.class);
                 Date date = comment.getCreateTime();
@@ -51,8 +51,8 @@ public class SparkStreaming {
             });
             JavaPairDStream<StreamingResult, Integer> right = words.mapToPair(s -> new Tuple2<>(s, 1));
             JavaPairDStream<StreamingResult, Integer> rightResults = right.reduceByKey((i1, i2) -> i1 + i2);
-            Date date = new Date();
             rightResults.foreachRDD(rdd -> {
+                Date date = new Date();
                 JavaRDD<Document> documents = rdd.map(result ->
                         Document.parse(String.format("{\"createTime\": \"%s\", \"word\": \"%s\", \"count\": %d}",
                                 date, result._1.getWord(), result._2)));
