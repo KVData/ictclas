@@ -7,6 +7,7 @@ import cn.edu.nju.software.nlpir.NlpirMethod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * @author dalec
  */
-public class NlpServiceImpl implements NlpService {
+public class NlpServiceImpl implements NlpService,Serializable {
     private static final Logger logger = LogManager.getLogger(NlpServiceImpl.class);
 
     private static final String HASH_KEY = "#";
