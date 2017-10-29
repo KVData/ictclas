@@ -1,6 +1,8 @@
 package cn.edu.nju.software.entity;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
     private String content;
 
     public String getContent() {

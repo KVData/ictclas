@@ -1,9 +1,11 @@
 package cn.edu.nju.software.entity;
 
+import java.io.Serializable;
+
 /**
  * @author dalec
  */
-public class KeyWord extends Word {
+public class KeyWord extends Word implements Serializable {
     private double informationEntropyWeight;
     private int wordFrequencyWeight;
 

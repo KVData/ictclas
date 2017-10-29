@@ -1,9 +1,11 @@
 package cn.edu.nju.software.entity;
 
+import java.io.Serializable;
+
 /**
  * @author dalec
  */
-public class Word {
+public class Word implements Serializable {
     private String content;
     private String partOfSpeech;
 

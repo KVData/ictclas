@@ -9,7 +9,7 @@ package cn.edu.nju.software.nlpir;
 public class NlpirMethod {
 	// 初始化
 	static {
-		boolean flag = NlpirLib.Instance.NLPIR_Init("/home/hadoop/Data", 1, "");
+		boolean flag = NlpirLib.Instance.NLPIR_Init("/home/hadoop", 1, "");
 
 		if (flag) {
 			System.out.println("nlpir初始化成功");

@@ -1,9 +1,11 @@
 package cn.edu.nju.software.entity;
 
+import java.io.Serializable;
+
 /**
  * @author dalec
  */
-public class WordFrequencyResult extends Word {
+public class WordFrequencyResult extends Word implements Serializable {
     private int count;
 
     public WordFrequencyResult(String word, String partOfSpeech, int count) {
