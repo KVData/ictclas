@@ -21,9 +21,7 @@ public final class JavaWordCount {
         }
 
         SparkConf conf = new SparkConf()
-                .setAppName("JavaWordCount")
-                .setMaster("spark://192.168.1.112:7077")
-                .setJars(new String[] {"/Users/dalec/IdeaProjects/ictclas/target/ictclas-0.1-jar-with-dependencies.jar"});
+                .setAppName("JavaWordCount");
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         JavaRDD<String> lines = sc.textFile(args[0]);
