@@ -28,7 +28,7 @@ public class SparkStreaming {
     public static void main(String[] args) throws InterruptedException {
 
         SparkConf conf = new SparkConf().setAppName("NetworkWordCount").set("spark.testing.memory",
-                "2147480000");
+                "2147480000").set("spark.mongodb.output.uri", "mongodb://192.168.1.102:27017/test.result");
         JavaStreamingContext jssc = new JavaStreamingContext(conf, Durations.seconds(20));
 
         try (NlpService service = new NlpServiceImpl()) {
